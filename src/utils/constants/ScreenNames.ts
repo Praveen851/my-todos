@@ -1,6 +1,6 @@
 export enum ScreenNames {
-    Login = 'Login',
-    Register = 'Register',
+    Login = "Login",
+    Register = "Register",
 }
 
 export default ScreenNames;
