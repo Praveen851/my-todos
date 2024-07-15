@@ -9,13 +9,12 @@ type Props = NativeStackScreenProps<RootStackParamList, ScreenNames>;
 const LoginScreen = ({ route }: Props) => {
     return (
         <View>
-            <View style={styles.topImageContainer}>
-                <Image
-                    source={require("../../assets/topVector.png")}
-                    style={styles.topImage}
-                />
-            </View>
-            <Text>{route.params?.title}</Text>
+            <Image
+                source={require("../../assets/topVector.png")}
+                style={styles.topImage}
+            />
+            <Text style={styles.helloText}>Hello</Text>
+            <Text style={styles.signInText}>Sign in to your account</Text>
         </View>
     );
 };
@@ -27,11 +26,20 @@ const styles = StyleSheet.create({
         backgroundColor: "#f5f5f5",
         flex: 1,
     },
-    topImageContainer: {
-        height: 50,
-    },
     topImage: {
         width: "100%",
         height: 140,
+    },
+    helloText: {
+        textAlign: "center",
+        fontSize: 70,
+        fontWeight: "500",
+        color: "#262626",
+    },
+    signInText: {
+        textAlign: "center",
+        fontSize: 18,
+        color: "#262626",
+        marginBottom: 30,
     },
 });
