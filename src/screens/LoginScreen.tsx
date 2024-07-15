@@ -11,10 +11,15 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/RootStackParamList";
 import ScreenNames from "../utils/constants/ScreenNames";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = NativeStackScreenProps<RootStackParamList, ScreenNames>;
 
-const LoginScreen = ({ route }: Props) => {
+const LoginScreen = ({ navigation }: Props) => {
+    const handleRegister = () =>
+        navigation.navigate(ScreenNames.Register, {
+            title: ScreenNames.Register,
+        });
     return (
         <View>
             <Image
@@ -37,6 +42,12 @@ const LoginScreen = ({ route }: Props) => {
             </View>
             <Pressable style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>Sign in</Text>
+            </Pressable>
+            <Pressable onPress={handleRegister}>
+                <Text style={styles.footerText}>
+                    Don't have an account?
+                    <Text style={styles.registerText}> Register</Text>
+                </Text>
             </Pressable>
         </View>
     );
@@ -97,5 +108,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         letterSpacing: 0.25,
         color: "white",
+    },
+    footerText: {
+        color: "#262626",
+        textAlign: "center",
+        fontSize: 16,
+        marginTop: 30,
+    },
+    registerText: {
+        textDecorationLine: "underline",
     },
 });
