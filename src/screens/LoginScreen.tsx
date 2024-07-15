@@ -17,7 +17,7 @@ type Props = NativeStackScreenProps<RootStackParamList, ScreenNames>;
 
 const LoginScreen = ({ navigation }: Props) => {
     const handleRegister = () =>
-        navigation.navigate(ScreenNames.Register, {
+        navigation.replace(ScreenNames.Register, {
             title: ScreenNames.Register,
         });
     return (
