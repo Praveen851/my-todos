@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/RootStackParamList";
 import ScreenNames from "../utils/constants/ScreenNames";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = NativeStackScreenProps<RootStackParamList, ScreenNames>;
 
@@ -15,6 +16,10 @@ const LoginScreen = ({ route }: Props) => {
             />
             <Text style={styles.helloText}>Hello</Text>
             <Text style={styles.signInText}>Sign in to your account</Text>
+            <View style={styles.inputContainer}>
+                <Ionicons name="mail" size={28} color={"#9a9a9a"} />
+                <TextInput placeholder="Email" style={styles.textInput} />
+            </View>
         </View>
     );
 };
@@ -41,5 +46,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#262626",
         marginBottom: 30,
+    },
+    inputContainer: {
+        backgroundColor: "#ffffff",
+        flexDirection: "row",
+        borderRadius: 20,
+        marginHorizontal: 40,
+        marginVertical: 20,
+        elevation: 10,
+        alignItems: "center",
+        height: 50,
+        padding: 10,
+    },
+    textInput: {
+        marginLeft: 15,
+        fontSize: 16,
     },
 });
