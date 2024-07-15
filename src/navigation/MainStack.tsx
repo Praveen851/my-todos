@@ -8,9 +8,9 @@ import { ScreenNames } from '../utils/constants/ScreenNames';
 const MainStack = () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
-    <Stack.Navigator>
-      <Stack.Screen initialParams={{ title: ScreenNames.Login}} name={ScreenNames.Login} component={LoginScreen}/>
-      <Stack.Screen initialParams={{ title: ScreenNames.Register}} name={ScreenNames.Register} component={ RegisterScreen}/>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen initialParams={{title: ScreenNames.Login}} name={ScreenNames.Login} component={LoginScreen}/>
+      <Stack.Screen initialParams={{title: ScreenNames.Register}} name={ScreenNames.Register} component={ RegisterScreen}/>
     </Stack.Navigator>
   )
 }
