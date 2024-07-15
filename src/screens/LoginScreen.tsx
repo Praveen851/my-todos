@@ -20,6 +20,14 @@ const LoginScreen = ({ route }: Props) => {
                 <Ionicons name="mail" size={28} color={"#9a9a9a"} />
                 <TextInput placeholder="Email" style={styles.textInput} />
             </View>
+            <View style={styles.inputContainer}>
+                <Ionicons name="lock-closed" size={28} color={"#9a9a9a"} />
+                <TextInput
+                    placeholder="Password"
+                    style={styles.textInput}
+                    secureTextEntry
+                />
+            </View>
         </View>
     );
 };
@@ -52,7 +60,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderRadius: 20,
         marginHorizontal: 40,
-        marginVertical: 20,
+        marginVertical: 10,
         elevation: 10,
         alignItems: "center",
         height: 50,
