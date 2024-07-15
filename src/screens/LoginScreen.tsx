@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TextInput,
+    Pressable,
+} from "react-native";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/RootStackParamList";
@@ -28,6 +35,9 @@ const LoginScreen = ({ route }: Props) => {
                     secureTextEntry
                 />
             </View>
+            <Pressable style={styles.buttonContainer}>
+                <Text style={styles.buttonText}>Sign in</Text>
+            </Pressable>
         </View>
     );
 };
@@ -69,5 +79,23 @@ const styles = StyleSheet.create({
     textInput: {
         marginLeft: 15,
         fontSize: 16,
+    },
+    buttonContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        marginTop: 30,
+        marginHorizontal: 140,
+        borderRadius: 24,
+        elevation: 3,
+        backgroundColor: "black",
+    },
+    buttonText: {
+        fontSize: 18,
+        lineHeight: 21,
+        fontWeight: "bold",
+        letterSpacing: 0.25,
+        color: "white",
     },
 });
