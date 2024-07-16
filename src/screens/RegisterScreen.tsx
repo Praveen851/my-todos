@@ -12,7 +12,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFormik } from "formik";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/StackParamList.types";
-import { AuthScreenNames } from "../utils/constants/ScreenNames";
+import { AuthScreenNames } from "../utils/ScreenNames";
 import { showToast, getData, storeData } from "../utils/helpers";
 
 type RegisterFormType = {
@@ -34,7 +34,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         ) {
             return showToast("Please fill all the fields", "error");
         }
-        const isExistingUser = await getData(email) !== null;
+        const isExistingUser = (await getData(email)) !== null;
         if (isExistingUser) {
             showToast("User already exists. Please login", "error");
             handleLogin();

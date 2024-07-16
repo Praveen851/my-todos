@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/StackParamList.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import LoginScreenStyles from "./LoginScreenStyles";
-import { AuthScreenNames } from "../utils/constants/ScreenNames";
+import { AuthScreenNames } from "../utils/ScreenNames";
 import { AuthContext } from "../utils/context/AuthContext";
 import { useFormik } from "formik";
 import { showToast } from "../utils/helpers";
