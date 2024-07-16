@@ -1,6 +1,8 @@
-export enum ScreenNames {
+export enum AuthScreenNames {
     Login = "Login",
     Register = "Register",
 }
 
-export default ScreenNames;
+export enum MainScreenNames {
+    DashBoard = "DashBoard",
+}
