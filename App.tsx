@@ -1,15 +1,10 @@
-import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./src/navigation/AuthStack";
-import Toast from "react-native-toast-message";
+import AppNav from "./src/navigation/AppNav";
 import AuthProvider from "./src/utils/context/AuthContext";
 
 export default function App() {
     return (
         <AuthProvider>
-            <NavigationContainer>
-                <AuthStack />
-                <Toast />
-            </NavigationContainer>
+            <AppNav />
         </AuthProvider>
     );
 }
