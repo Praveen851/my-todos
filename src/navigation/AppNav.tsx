@@ -7,7 +7,6 @@ import MainStack from "./MainStack";
 
 const AppNav = () => {
     const { user } = useContext(AuthContext);
-    console.log(user, "checkUser");
 
     return (
         <NavigationContainer>
