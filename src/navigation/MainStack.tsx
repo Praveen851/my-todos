@@ -1,23 +1,16 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "../screens/LoginScreen";
-import RegisterScreen from "../screens/RegisterScreen";
-import { RootStackParamList } from "./RootStackParamList";
-import { ScreenNames } from "../utils/constants/ScreenNames";
+import { MainScreenNames } from "../utils/constants/ScreenNames";
+import { MainStackParamList } from "./StackParamList.types";
+import DashBoard from "../screens/DashBoardScreen";
 
 const MainStack = () => {
-    const Stack = createNativeStackNavigator<RootStackParamList>();
+    const Stack = createNativeStackNavigator<MainStackParamList>();
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen
-                initialParams={{ title: ScreenNames.Login }}
-                name={ScreenNames.Login}
-                component={LoginScreen}
-            />
-            <Stack.Screen
-                initialParams={{ title: ScreenNames.Register }}
-                name={ScreenNames.Register}
-                component={RegisterScreen}
+                name={MainScreenNames.DashBoard}
+                component={DashBoard}
             />
         </Stack.Navigator>
     );

@@ -1,18 +1,15 @@
 import { View, Text, Image, TextInput, Pressable } from "react-native";
 import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/RootStackParamList";
-import ScreenNames from "../utils/constants/ScreenNames";
+import { AuthStackParamList } from "../navigation/StackParamList.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import LoginScreenStyles from "./LoginScreenStyles";
+import { AuthScreenNames } from "../utils/constants/ScreenNames";
 
-type Props = NativeStackScreenProps<RootStackParamList, ScreenNames>;
+type Props = NativeStackScreenProps<AuthStackParamList, AuthScreenNames>;
 
 const LoginScreen = ({ navigation }: Props) => {
-    const handleRegister = () =>
-        navigation.replace(ScreenNames.Register, {
-            title: ScreenNames.Register,
-        });
+    const handleRegister = () => navigation.replace(AuthScreenNames.Register);
     return (
         <View>
             <Image
