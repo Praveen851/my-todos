@@ -3,13 +3,13 @@ import { authenticate } from "../helpers";
 
 type AuthContextType = {
     user: string | null;
-    login: (email: string, password: string) => void;
+    login: (email: string, password: string) => Promise<boolean | void>;
     logout: () => void;
 };
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
-    login: () => {},
+    login: async () => {},
     logout: () => {},
 });
 
@@ -20,9 +20,10 @@ interface AuthProviderProps {
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<string>("");
 
-    const login = (email: string, password: string) => {
-        authenticate(email, password);
-        setUser(email);
+    const login = async (email: string, password: string) => {
+        const isValidUser = await authenticate(email, password);
+        if (isValidUser) setUser(email);
+        return isValidUser;
     };
 
     const logout = () => {
