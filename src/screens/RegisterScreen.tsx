@@ -13,6 +13,7 @@ import { useFormik } from "formik";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/StackParamList.types";
 import { AuthScreenNames } from "../utils/constants/ScreenNames";
+import { showToast, getData, storeData } from "../utils/helpers";
 
 type RegisterFormType = {
     name: string;
@@ -24,8 +25,26 @@ type Props = NativeStackScreenProps<AuthStackParamList, AuthScreenNames>;
 
 const RegisterScreen = ({ navigation }: Props) => {
     const handleLogin = () => navigation.pop();
-    const handleOnSubmit = (values: RegisterFormType) => {
-        console.log(values, "valuesonsubmit");
+    const handleOnSubmit = async (values: RegisterFormType) => {
+        const { email, password } = values;
+        if (
+            values.name === "" ||
+            values.email === "" ||
+            values.password === ""
+        ) {
+            return showToast("Please fill all the fields", "error");
+        }
+        const isExistingUser = await getData(email);
+        if (isExistingUser) {
+            showToast("User already exists. Please login", "error");
+            handleLogin();
+            return;
+        }
+
+        await storeData(email, password);
+
+        showToast("Account created successfully. Login now!", "success");
+        handleLogin();
     };
     const createNewUserForm = useFormik({
         initialValues: {
