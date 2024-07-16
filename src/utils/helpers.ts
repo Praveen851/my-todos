@@ -26,11 +26,14 @@ export const getData = async (key: string) => {
     }
 };
 
-export const authenticate = async(email: string, password: string) => {
+export const authenticate = async (email: string, password: string) => {
     try {
         const value = await getData(email);
+        if (value === null)
+            showToast("User doesn't exist, Create a new account", "error");
+        else if (value !== password) showToast("Invalid Password", "error");
         return value === password;
     } catch (e) {
-        return showToast("Invalid credentials", "error");
+        return showToast("Something went wrong. Please try again", "error");
     }
-}
+};
