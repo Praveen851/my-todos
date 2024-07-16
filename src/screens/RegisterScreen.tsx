@@ -10,6 +10,9 @@ import React from "react";
 import RegisterScreenStyles from "./LoginScreenStyles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFormik } from "formik";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AuthStackParamList } from "../navigation/StackParamList.types";
+import { AuthScreenNames } from "../utils/constants/ScreenNames";
 
 type RegisterFormType = {
     name: string;
@@ -17,7 +20,10 @@ type RegisterFormType = {
     password: string;
 };
 
-const RegisterScreen = () => {
+type Props = NativeStackScreenProps<AuthStackParamList, AuthScreenNames>;
+
+const RegisterScreen = ({ navigation }: Props) => {
+    const handleLogin = () => navigation.pop();
     const handleOnSubmit = (values: RegisterFormType) => {
         console.log(values, "valuesonsubmit");
     };
@@ -77,6 +83,14 @@ const RegisterScreen = () => {
                 onPress={() => handleSubmit()}
             >
                 <Text style={RegisterScreenStyles.buttonText}>Sign up</Text>
+            </Pressable>
+            <Pressable onPress={handleLogin}>
+                <Text style={RegisterScreenStyles.footerText}>
+                    Already have an account?
+                    <Text style={RegisterScreenStyles.footerActionText}>
+                        {" Login"}
+                    </Text>
+                </Text>
             </Pressable>
         </View>
     );

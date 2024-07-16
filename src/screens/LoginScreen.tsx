@@ -9,7 +9,7 @@ import { AuthScreenNames } from "../utils/constants/ScreenNames";
 type Props = NativeStackScreenProps<AuthStackParamList, AuthScreenNames>;
 
 const LoginScreen = ({ navigation }: Props) => {
-    const handleRegister = () => navigation.replace(AuthScreenNames.Register);
+    const handleRegister = () => navigation.push(AuthScreenNames.Register);
     return (
         <View>
             <Image
