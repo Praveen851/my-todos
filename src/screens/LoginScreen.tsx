@@ -30,9 +30,12 @@ const LoginScreen = ({ navigation }: Props) => {
         onSubmit: handleOnSubmit,
     });
 
-    const { values, handleChange, handleSubmit } = SignInFormik;
+    const { values, handleChange, handleSubmit, resetForm } = SignInFormik;
 
-    const handleRegister = () => navigation.push(AuthScreenNames.Register);
+    const handleRegister = () => {
+        resetForm();
+        navigation.push(AuthScreenNames.Register);
+    };
     return (
         <View>
             <Image
