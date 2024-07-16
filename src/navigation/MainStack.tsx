@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import DashBoard from "../screens/DashBoardScreen";
+import DashBoard from "../screens/TodayScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const MainStack = () => {

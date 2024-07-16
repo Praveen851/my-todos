@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const DashBoardScreen = () => {
+const TodayScreen = () => {
     return (
         <View>
-            <Text>DashBoardScreen</Text>
+            <Text>TodayScreen</Text>
         </View>
     );
 };
 
-export default DashBoardScreen;
+export default TodayScreen;
