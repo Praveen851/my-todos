@@ -1,18 +1,15 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainScreenNames } from "../utils/ScreenNames";
-import { MainStackParamList } from "./StackParamList.types";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashBoard from "../screens/DashBoardScreen";
 
 const MainStack = () => {
-    const Stack = createNativeStackNavigator<MainStackParamList>();
+    const Tab = createBottomTabNavigator();
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name={MainScreenNames.DashBoard}
-                component={DashBoard}
-            />
-        </Stack.Navigator>
+        <Tab.Navigator>
+            <Tab.Screen name="Home" component={DashBoard} />
+            <Tab.Screen name="Today" component={DashBoard} />
+            <Tab.Screen name="Overall" component={DashBoard} />
+        </Tab.Navigator>
     );
 };
 
