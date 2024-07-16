@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }: Props) => {
             <Pressable onPress={handleRegister}>
                 <Text style={LoginScreenStyles.footerText}>
                     Don't have an account?
-                    <Text style={LoginScreenStyles.registerText}>
+                    <Text style={LoginScreenStyles.footerActionText}>
                         {" Register"}
                     </Text>
                 </Text>

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 30,
     },
-    registerText: {
+    footerActionText: {
         textDecorationLine: "underline",
     },
 });
