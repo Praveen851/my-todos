@@ -34,7 +34,7 @@ const RegisterScreen = ({ navigation }: Props) => {
         ) {
             return showToast("Please fill all the fields", "error");
         }
-        const isExistingUser = await getData(email);
+        const isExistingUser = await getData(email) !== null;
         if (isExistingUser) {
             showToast("User already exists. Please login", "error");
             handleLogin();

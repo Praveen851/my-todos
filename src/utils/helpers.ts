@@ -20,8 +20,17 @@ export const storeData = async (key: string, value: string) => {
 export const getData = async (key: string) => {
     try {
         const value = await AsyncStorage.getItem(key);
-        return value !== null;
+        return value;
     } catch (e) {
         return showToast("Something went wrong. Please try again", "error");
     }
 };
+
+export const authenticate = async(email: string, password: string) => {
+    try {
+        const value = await getData(email);
+        return value === password;
+    } catch (e) {
+        return showToast("Invalid credentials", "error");
+    }
+}
