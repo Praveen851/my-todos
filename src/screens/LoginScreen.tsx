@@ -45,8 +45,7 @@ const LoginScreen = ({ navigation }: Props) => {
                 <Text style={LoginScreenStyles.footerText}>
                     Don't have an account?
                     <Text style={LoginScreenStyles.registerText}>
-                        {" "}
-                        Register
+                        {" Register"}
                     </Text>
                 </Text>
             </Pressable>
