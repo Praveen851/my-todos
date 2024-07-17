@@ -4,7 +4,7 @@ import TodayScreen from "../screens/TodayScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MainStackParamList, TabStackParamList } from "./StackParamList.types";
-import EditScreen from "../screens/EditScreen";
+import ViewToDoScreen from "../screens/ViewTodo";
 import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
 
 const MainStack = () => {
@@ -45,8 +45,9 @@ const MainStack = () => {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name={MainScreenNames.EditScreen}
-                component={EditScreen}
+                name={MainScreenNames.ViewToDoScreen}
+                component={ViewToDoScreen}
+                options={{ title: "View Task" }}
             />
         </Stack.Navigator>
     );

@@ -52,7 +52,7 @@ const ListTodoComponent = ({
     };
 
     const handleView = () => {
-        navigation.navigate(MainScreenNames.EditScreen, {
+        navigation.navigate(MainScreenNames.ViewToDoScreen, {
             description: description,
             dueDate: dueDate,
             status: status,
