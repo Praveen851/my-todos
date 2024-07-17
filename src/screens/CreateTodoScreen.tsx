@@ -13,8 +13,16 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { getDateString } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { RouteProp, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { MainScreenNames } from "../utils/ScreenNames";
 
 type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
+
+type NavigationProps = NativeStackScreenProps<
+    MainStackParamList,
+    MainScreenNames
+>;
 
 type CreateTodoScreenProps = {
     isEdit?: boolean;
@@ -37,6 +45,7 @@ const CreateTodoScreen = ({
     index = 0,
     deleteTodo,
 }: CreateTodoScreenProps) => {
+    const navigation: NavigationProps["navigation"] = useNavigation();
     const route = useRoute<ViewToDoRouteProp>().params;
     const { addTodo } = route;
     const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -68,17 +77,23 @@ const CreateTodoScreen = ({
             toggleDatePicker();
         }
     };
+    const handleGoBack = () => {
+        navigation.pop();
+    };
     const handleSave = () => {
         if (isEdit && typeof editTodo === "function") {
             editTodo(todo, index);
         } else addTodo(todo);
+        handleGoBack();
     };
 
     const handleDelete = () => {
         if (isEdit && typeof deleteTodo === "function") {
             deleteTodo(index);
         }
+        handleGoBack();
     };
+
     return (
         <View>
             {showPicker && (
