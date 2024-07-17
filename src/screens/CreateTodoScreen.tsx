@@ -16,20 +16,35 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 
 type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
 
-const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
+type CreateTodoScreenProps = {
+    isEdit?: boolean;
+    description?: string;
+    title?: string;
+    status?: "completed" | "pending";
+    dueDate?: string;
+    editTodo?: (todo: ToDoType, index: number) => void;
+    index?: number;
+};
+
+const CreateTodoScreen = ({
+    isEdit,
+    description = "",
+    title = "",
+    status = "pending",
+    dueDate = new Date().toDateString(),
+    editTodo,
+    index = 0,
+}: CreateTodoScreenProps) => {
     const route = useRoute<ViewToDoRouteProp>().params;
-
     const { addTodo } = route;
-
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const toggleDatePicker = () => setShowPicker(!showPicker);
     const [todo, setTodo] = useState<ToDoType>({
-        title: "",
-        description: "",
-        dueDate: new Date().toDateString(),
-        status: "pending",
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        status: status,
     });
-    const { description, dueDate, title } = todo;
 
     const onChange: (
         {
@@ -51,6 +66,11 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
             toggleDatePicker();
         }
     };
+    const handleSave = () => {
+        if (isEdit && typeof editTodo === "function") {
+            editTodo(todo, index);
+        } else addTodo(todo);
+    };
 
     return (
         <View>
@@ -65,7 +85,7 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Title"
-                    value={title}
+                    value={todo.title}
                     maxLength={50}
                     onChange={(e) =>
                         setTodo({ ...todo, title: e.nativeEvent.text })
@@ -77,7 +97,7 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                     placeholder="Description"
                     multiline
                     numberOfLines={5}
-                    value={description}
+                    value={todo.description}
                     maxLength={200}
                     onChange={(e) =>
                         setTodo({ ...todo, description: e.nativeEvent.text })
@@ -114,14 +134,11 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                             color: "blue",
                         }}
                     >
-                        {getDateString(dueDate)}
+                        {getDateString(todo.dueDate)}
                     </Text>
                 </Pressable>
             </View>
-            <Pressable
-                style={ButtonStyle.buttonContainer}
-                onPress={() => addTodo(todo)}
-            >
+            <Pressable style={ButtonStyle.buttonContainer} onPress={handleSave}>
                 <Text style={ButtonStyle.buttonText}>Save</Text>
             </Pressable>
         </View>

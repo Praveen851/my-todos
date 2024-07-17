@@ -33,6 +33,13 @@ const ListTodoScreen = () => {
         storeData(TODO_LIST_KEY, JSON.stringify(todoList));
     };
 
+    const editTodo = (todo: ToDoType, index: number) => {
+        todoList[index] = todo;
+        setTodoList([...todoList]);
+
+        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+    };
+
     const toggleStatus = (index: number) => {
         todoList[index].status =
             todoList[index].status === "completed" ? "pending" : "completed";
@@ -58,6 +65,7 @@ const ListTodoScreen = () => {
                         {...item}
                         index={index}
                         toggleStatus={toggleStatus}
+                        editTodo={editTodo}
                     />
                 )}
             ></FlatList>

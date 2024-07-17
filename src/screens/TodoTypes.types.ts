@@ -9,6 +9,11 @@ export type CreateTodoType = ToDoType & {
     addTodo: (todo: ToDoType) => void;
 };
 
+export type EditTodoType = ToDoType & {
+    editTodo: (todo: ToDoType, index: number) => void;
+    index: number;
+};
+
 export type TodoListType = ToDoType[];
 
 export const todoList: TodoListType = [
