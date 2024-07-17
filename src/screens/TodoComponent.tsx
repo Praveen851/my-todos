@@ -16,6 +16,7 @@ type TodoComponentProps = ToDoType & {
     index: number;
     toggleStatus: (index: number) => void;
     editTodo: (todo: ToDoType, index: number) => void;
+    deleteTodo: (index: number) => void;
 };
 
 const TodoComponent = ({
@@ -26,6 +27,7 @@ const TodoComponent = ({
     toggleStatus,
     index,
     editTodo,
+    deleteTodo,
 }: TodoComponentProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
 
@@ -37,6 +39,7 @@ const TodoComponent = ({
             title: title,
             editTodo: editTodo,
             index: index,
+            deleteTodo: deleteTodo,
         });
     };
 

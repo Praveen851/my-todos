@@ -36,7 +36,12 @@ const ListTodoScreen = () => {
     const editTodo = (todo: ToDoType, index: number) => {
         todoList[index] = todo;
         setTodoList([...todoList]);
-
+        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+    };
+    
+    const deleteTodo = (index: number) => {
+        todoList.splice(index, 1);
+        setTodoList([...todoList]);
         storeData(TODO_LIST_KEY, JSON.stringify(todoList));
     };
 
@@ -66,6 +71,7 @@ const ListTodoScreen = () => {
                         index={index}
                         toggleStatus={toggleStatus}
                         editTodo={editTodo}
+                        deleteTodo={deleteTodo}
                     />
                 )}
             ></FlatList>

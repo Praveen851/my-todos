@@ -24,6 +24,7 @@ type CreateTodoScreenProps = {
     dueDate?: string;
     editTodo?: (todo: ToDoType, index: number) => void;
     index?: number;
+    deleteTodo?: (index: number) => void;
 };
 
 const CreateTodoScreen = ({
@@ -34,6 +35,7 @@ const CreateTodoScreen = ({
     dueDate = new Date().toDateString(),
     editTodo,
     index = 0,
+    deleteTodo,
 }: CreateTodoScreenProps) => {
     const route = useRoute<ViewToDoRouteProp>().params;
     const { addTodo } = route;
@@ -72,6 +74,11 @@ const CreateTodoScreen = ({
         } else addTodo(todo);
     };
 
+    const handleDelete = () => {
+        if (isEdit && typeof deleteTodo === "function") {
+            deleteTodo(index);
+        }
+    };
     return (
         <View>
             {showPicker && (
@@ -127,9 +134,18 @@ const CreateTodoScreen = ({
                     </Text>
                 </Pressable>
             </View>
+
             <Pressable style={ButtonStyle.buttonContainer} onPress={handleSave}>
                 <Text style={ButtonStyle.buttonText}>Save</Text>
             </Pressable>
+            {isEdit && (
+                <Pressable
+                    style={ButtonStyle.buttonContainer}
+                    onPress={handleDelete}
+                >
+                    <Text style={ButtonStyle.buttonText}>Delete</Text>
+                </Pressable>
+            )}
         </View>
     );
 };
