@@ -37,3 +37,7 @@ export const authenticate = async (email: string, password: string) => {
         return showToast("Something went wrong. Please try again", "error");
     }
 };
+
+export const getFormattedDate = (date: string) => {
+    return date.split(" ").slice(1, 3).join(" ");
+};
