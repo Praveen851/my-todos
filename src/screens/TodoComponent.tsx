@@ -10,8 +10,18 @@ import React, { useState } from "react";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
+import { MainScreenNames } from "../utils/ScreenNames";
+import { MainStackParamList } from "../navigation/StackParamList.types";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+type NavigationProps = NativeStackScreenProps<
+    MainStackParamList,
+    MainScreenNames
+>;
 
 const ListTodoComponent = ({ title, status }: ToDoType) => {
+    const navigation: NavigationProps["navigation"] = useNavigation();
     const [currDate, setCurrDate] = useState<string>("today");
     const [date, setDate] = useState<Date>(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -35,6 +45,10 @@ const ListTodoComponent = ({ title, status }: ToDoType) => {
             toggleDatePicker();
         }
     };
+
+    const handleView = () => {
+        navigation.navigate(MainScreenNames.EditScreen);
+    };
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -49,10 +63,7 @@ const ListTodoComponent = ({ title, status }: ToDoType) => {
                     <Text>{currDate}</Text>
                 </Pressable>
 
-                <Pressable
-                    style={styles.view}
-                    onPress={() => {}}
-                >
+                <Pressable style={styles.view} onPress={handleView}>
                     <Text style={{ color: "blue" }}>View</Text>
                 </Pressable>
             </View>
