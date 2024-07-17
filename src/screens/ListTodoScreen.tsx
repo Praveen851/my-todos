@@ -1,14 +1,28 @@
-import { FlatList } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import React from "react";
 import TodoComponent from "./TodoComponent";
-import { todoList } from "./TodoTypes.types";
+import { ToDoType } from "./TodoTypes.types";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const ListTodoScreen = () => {
+    const TodoList: ToDoType[] = [];
+
+    const addTodo = (todo: ToDoType) => {
+        TodoList.push(todo);
+    };
     return (
-        <FlatList
-            data={todoList}
-            renderItem={({ item }) => <TodoComponent {...item} />}
-        ></FlatList>
+        <>
+            {TodoList.length === 0 && <Text>no todos, Add new</Text>}
+            <FlatList
+                data={TodoList}
+                renderItem={({ item }) => (
+                    <TodoComponent {...item} addTodo={addTodo} />
+                )}
+            ></FlatList>
+            <View>
+                <Ionicons name="add-circle" color={"green"} size={48} />
+            </View>
+        </>
     );
 };
 
