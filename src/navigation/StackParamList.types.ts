@@ -8,6 +8,7 @@ export type AuthStackParamList = {
 export type MainStackParamList = {
     DashBoard: undefined;
     ViewToDoScreen: ToDoType;
+    CreateToDoScreen: ToDoType;
 };
 
 export type TabStackParamList = {
