@@ -26,6 +26,7 @@ const ListTodoScreen = () => {
             dueDate: "today",
             status: "pending",
             title: "",
+            addTodo: addTodo,
         });
     };
     return (

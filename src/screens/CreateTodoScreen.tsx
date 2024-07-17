@@ -11,14 +11,23 @@ import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { getFormattedDate } from "../utils/helpers";
+import { MainStackParamList } from "../navigation/StackParamList.types";
+import { RouteProp, useRoute } from "@react-navigation/native";
+
+type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
 
 const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
+    const route = useRoute<ViewToDoRouteProp>().params;
+
+    const { addTodo } = route;
+
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const toggleDatePicker = () => setShowPicker(!showPicker);
-    const [todo, setTodo] = useState<Omit<ToDoType, "status">>({
+    const [todo, setTodo] = useState<ToDoType>({
         title: "",
         description: "",
         dueDate: new Date().toDateString(),
+        status: "pending",
     });
     const { description, dueDate, title } = todo;
 
@@ -111,7 +120,10 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                     </Text>
                 </Pressable>
             </View>
-            <Pressable style={ButtonStyle.buttonContainer}>
+            <Pressable
+                style={ButtonStyle.buttonContainer}
+                onPress={() => addTodo(todo)}
+            >
                 <Text style={ButtonStyle.buttonText}>Save</Text>
             </Pressable>
         </View>
