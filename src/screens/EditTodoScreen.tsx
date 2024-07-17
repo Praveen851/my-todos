@@ -4,8 +4,8 @@ import React from "react";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 
-type ViewToDoRouteProp = RouteProp<MainStackParamList, "ViewToDoScreen">;
-const ViewToDoScreen = () => {
+type ViewToDoRouteProp = RouteProp<MainStackParamList, "EditToDoScreen">;
+const EditToDoScreen = () => {
     const route = useRoute<ViewToDoRouteProp>();
     const { description, dueDate, status, title } = route.params;
     return (
@@ -36,7 +36,7 @@ const ViewToDoScreen = () => {
     );
 };
 
-export default ViewToDoScreen;
+export default EditToDoScreen;
 
 const styles = StyleSheet.create({
     inputContainer: {

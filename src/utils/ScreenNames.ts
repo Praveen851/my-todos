@@ -5,8 +5,8 @@ export enum AuthScreenNames {
 
 export enum MainScreenNames {
     DashBoard = "DashBoard",
-    ViewToDoScreen = "ViewToDoScreen",
-    CreateToDoScreen = "CreateToDoScreen"
+    EditToDoScreen = "EditToDoScreen",
+    CreateToDoScreen = "CreateToDoScreen",
 }
 
 export enum TabScreenNames {

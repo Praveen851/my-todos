@@ -47,7 +47,7 @@ const TodoComponent = ({ title, status, description, dueDate }: ToDoType) => {
     };
 
     const handleView = () => {
-        navigation.navigate(MainScreenNames.ViewToDoScreen, {
+        navigation.navigate(MainScreenNames.EditToDoScreen, {
             description: description,
             dueDate: dueDate,
             status: status,
@@ -70,7 +70,7 @@ const TodoComponent = ({ title, status, description, dueDate }: ToDoType) => {
                 </Pressable>
 
                 <Pressable style={styles.view} onPress={handleView}>
-                    <Text style={{ color: "blue" }}>View</Text>
+                    <Text style={{ color: "blue" }}>Edit</Text>
                 </Pressable>
             </View>
             {showPicker && (

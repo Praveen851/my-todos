@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-import ViewToDoScreen from "./ViewTodo";
+import EditToDoScreen from "./EditTodoScreen";
 
 const CreateTodoScreen = () => {
-    return <ViewToDoScreen />;
+    return <EditToDoScreen />;
 };
 
 export default CreateTodoScreen;
