@@ -61,7 +61,7 @@ const CreateTodoScreen = ({
         {
             type,
         }: {
-            type: any;
+            type: string;
         },
         selectedDate: any
     ) => void = ({ type }, selectedDate) => {
