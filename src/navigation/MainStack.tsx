@@ -24,6 +24,7 @@ const MainStack = () => {
                                 size={32}
                             />
                         ),
+                        title: "All Todos",
                     }}
                 />
                 <Tab.Screen
@@ -31,6 +32,7 @@ const MainStack = () => {
                     component={TodayScreen}
                     options={{
                         tabBarIcon: () => <Ionicons name="today" size={24} />,
+                        title: "Due today",
                     }}
                 />
             </Tab.Navigator>
