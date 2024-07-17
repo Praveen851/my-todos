@@ -8,19 +8,19 @@ const MainStack = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="Today"
-                component={DashBoard}
-                options={{
-                    tabBarIcon: () => <Ionicons name="today" size={24} />,
-                }}
-            />
-            <Tab.Screen
                 name="Overall"
                 component={DashBoard}
                 options={{
                     tabBarIcon: () => (
                         <Ionicons name="notifications-circle-sharp" size={32} />
                     ),
+                }}
+            />
+            <Tab.Screen
+                name="Today"
+                component={DashBoard}
+                options={{
+                    tabBarIcon: () => <Ionicons name="today" size={24} />,
                 }}
             />
         </Tab.Navigator>
