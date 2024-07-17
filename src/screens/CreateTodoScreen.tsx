@@ -1,17 +1,58 @@
-import { Pressable, StyleSheet, TextInput, View, Text } from "react-native";
+import {
+    Pressable,
+    StyleSheet,
+    TextInput,
+    View,
+    Text,
+    Platform,
+} from "react-native";
 import React, { useState } from "react";
 import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { getFormattedDate } from "../utils/helpers";
 
 const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
+    const [showPicker, setShowPicker] = useState<boolean>(false);
+    const toggleDatePicker = () => setShowPicker(!showPicker);
     const [todo, setTodo] = useState<Omit<ToDoType, "status">>({
         title: "",
         description: "",
         dueDate: new Date().toDateString(),
     });
     const { description, dueDate, title } = todo;
+
+    const onChange: (
+        {
+            type,
+        }: {
+            type: any;
+        },
+        selectedDate: any
+    ) => void = ({ type }, selectedDate) => {
+        if (type == "set") {
+            if (Platform.OS === "android") {
+                toggleDatePicker();
+                setTodo({
+                    ...todo,
+                    dueDate: selectedDate.toDateString(),
+                });
+            }
+        } else {
+            toggleDatePicker();
+        }
+    };
+
     return (
         <View>
+            {showPicker && (
+                <DateTimePicker
+                    mode="date"
+                    value={new Date(dueDate)}
+                    onChange={onChange}
+                    minimumDate={new Date()}
+                />
+            )}
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="Title"
@@ -29,6 +70,9 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                     numberOfLines={5}
                     value={description}
                     maxLength={200}
+                    onChange={(e) =>
+                        setTodo({ ...todo, description: e.nativeEvent.text })
+                    }
                 />
             </View>
             {isEdit && (
@@ -52,7 +96,7 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                 >
                     {`Due date: `}
                 </Text>
-                <Pressable>
+                <Pressable onPress={toggleDatePicker}>
                     <Text
                         style={{
                             fontSize: 24,
@@ -63,7 +107,7 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                     >
                         {dueDate === new Date().toDateString()
                             ? "today"
-                            : dueDate}
+                            : getFormattedDate(dueDate)}
                     </Text>
                 </Pressable>
             </View>
