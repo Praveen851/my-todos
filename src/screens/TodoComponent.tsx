@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MainScreenNames } from "../utils/ScreenNames";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { getDateString } from "../utils/helpers";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
@@ -52,7 +53,7 @@ const TodoComponent = ({
                 <Text style={styles.title}>{title}</Text>
 
                 <View style={styles.date}>
-                    <Text>{dueDate}</Text>
+                    <Text>{getDateString(dueDate)}</Text>
                 </View>
                 <Pressable style={styles.view} onPress={handleView}>
                     <Text style={{ color: "blue" }}>Edit</Text>

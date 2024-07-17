@@ -49,3 +49,6 @@ export const getTodoList: () => Promise<ToDoType[]> = async () => {
     if (!todoList) return [];
     return JSON.parse(todoList);
 };
+
+export const getDateString = (date: string) =>
+    date === new Date().toDateString() ? "today" : getFormattedDate(date);

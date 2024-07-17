@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { getFormattedDate } from "../utils/helpers";
+import { getDateString } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { RouteProp, useRoute } from "@react-navigation/native";
 
@@ -114,9 +114,7 @@ const CreateTodoScreen = ({ isEdit }: { isEdit?: boolean }) => {
                             color: "blue",
                         }}
                     >
-                        {dueDate === new Date().toDateString()
-                            ? "today"
-                            : getFormattedDate(dueDate)}
+                        {getDateString(dueDate)}
                     </Text>
                 </Pressable>
             </View>
