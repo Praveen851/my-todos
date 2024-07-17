@@ -10,10 +10,8 @@ import React, { useState } from "react";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import EditTodoModal from "./EditTodoModal";
 
 const ListTodoComponent = ({ title, status }: ToDoType) => {
-    const [modalVisible, setModalVisible] = useState(false);
     const [currDate, setCurrDate] = useState<string>("today");
     const [date, setDate] = useState<Date>(new Date());
     const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -53,7 +51,7 @@ const ListTodoComponent = ({ title, status }: ToDoType) => {
 
                 <Pressable
                     style={styles.view}
-                    onPress={() => setModalVisible(true)}
+                    onPress={() => {}}
                 >
                     <Text style={{ color: "blue" }}>View</Text>
                 </Pressable>
@@ -61,10 +59,6 @@ const ListTodoComponent = ({ title, status }: ToDoType) => {
             {showPicker && (
                 <DateTimePicker mode="date" value={date} onChange={onChange} />
             )}
-            <EditTodoModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-            />
         </View>
     );
 };
