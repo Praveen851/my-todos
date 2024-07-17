@@ -33,6 +33,12 @@ const ListTodoScreen = () => {
         storeData(TODO_LIST_KEY, JSON.stringify(todoList));
     };
 
+    const toggleStatus = (index: number) => {
+        todoList[index].status =
+            todoList[index].status === "completed" ? "pending" : "completed";
+        setTodoList([...todoList]);
+        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+    };
     const handleCreateTodo = () => {
         navigation.navigate(MainScreenNames.CreateToDoScreen, {
             description: "",
@@ -47,7 +53,13 @@ const ListTodoScreen = () => {
             {todoList.length === 0 && <Text>no todos, Add new</Text>}
             <FlatList
                 data={todoList}
-                renderItem={({ item }) => <TodoComponent {...item} />}
+                renderItem={({ item, index }) => (
+                    <TodoComponent
+                        {...item}
+                        index={index}
+                        toggleStatus={toggleStatus}
+                    />
+                )}
             ></FlatList>
             <View>
                 <Ionicons

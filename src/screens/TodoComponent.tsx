@@ -12,7 +12,17 @@ type NavigationProps = NativeStackScreenProps<
     MainScreenNames
 >;
 
-const TodoComponent = ({ title, status, description, dueDate }: ToDoType) => {
+const TodoComponent = ({
+    title,
+    status,
+    description,
+    dueDate,
+    toggleStatus,
+    index,
+}: ToDoType & {
+    index: number;
+    toggleStatus: (index: number) => void;
+}) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
 
     const handleView = () => {
@@ -27,12 +37,18 @@ const TodoComponent = ({ title, status, description, dueDate }: ToDoType) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                {status === "pending" && (
-                    <Ionicons name="square-outline" size={24} color={"black"} />
-                )}
-                {status === "completed" && (
-                    <Ionicons name="checkbox" size={24} color={"green"} />
-                )}
+                <Pressable onPress={() => toggleStatus(index)}>
+                    {status === "pending" && (
+                        <Ionicons
+                            name="square-outline"
+                            size={24}
+                            color={"black"}
+                        />
+                    )}
+                    {status === "completed" && (
+                        <Ionicons name="checkbox" size={24} color={"green"} />
+                    )}
+                </Pressable>
                 <Text style={styles.title}>{title}</Text>
 
                 <View style={styles.date}>
