@@ -104,17 +104,6 @@ const CreateTodoScreen = ({
                     }
                 />
             </View>
-            {isEdit && (
-                <Text
-                    style={{
-                        fontSize: 24,
-                        fontWeight: "bold",
-                        marginVertical: 10,
-                    }}
-                >
-                    {`Status: ${status}`}
-                </Text>
-            )}
             <View style={{ flexDirection: "row" }}>
                 <Text
                     style={{
