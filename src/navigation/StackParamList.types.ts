@@ -1,3 +1,5 @@
+import { ToDoType } from "../screens/TodoTypes.types";
+
 export type AuthStackParamList = {
     Login: undefined;
     Register: undefined;
@@ -5,7 +7,7 @@ export type AuthStackParamList = {
 
 export type MainStackParamList = {
     DashBoard: undefined;
-    EditScreen: undefined;
+    EditScreen: ToDoType;
 };
 
 export type TabStackParamList = {
