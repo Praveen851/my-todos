@@ -33,9 +33,7 @@ const ListTodoScreen = () => {
             {TodoList.length === 0 && <Text>no todos, Add new</Text>}
             <FlatList
                 data={TodoList}
-                renderItem={({ item }) => (
-                    <TodoComponent {...item} addTodo={addTodo} />
-                )}
+                renderItem={({ item }) => <TodoComponent {...item} />}
             ></FlatList>
             <View>
                 <Ionicons
