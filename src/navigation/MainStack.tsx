@@ -16,7 +16,7 @@ const MainStack = () => {
         return (
             <Tab.Navigator>
                 <Tab.Screen
-                    name={TabScreenNames.OverAllScreen}
+                    name={TabScreenNames.AllTodoScreen}
                     component={ListTodoScreen}
                     options={{
                         tabBarIcon: () => (
@@ -29,7 +29,7 @@ const MainStack = () => {
                     }}
                 />
                 <Tab.Screen
-                    name={TabScreenNames.ListTodoScreen}
+                    name={TabScreenNames.DueTodayScreen}
                     component={ListTodoScreen}
                     options={{
                         tabBarIcon: () => <Ionicons name="today" size={24} />,

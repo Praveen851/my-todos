@@ -1,5 +1,5 @@
-import { View, Text, FlatList } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
 import TodoComponent from "./TodoComponent";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -28,23 +28,30 @@ const ListTodoScreen = () => {
         fetchData();
     }, []);
 
+    const updateTodoState = () => {
+        setTodoList([...todoList]);
+        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+    };
+
     const addTodo = (todo: ToDoType) => {
         todoList.push(todo);
-        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+        updateTodoState();
     };
 
     const editTodo = (todo: ToDoType, index: number) => {
         todoList[index] = todo;
-        setTodoList([...todoList]);
+        updateTodoState();
+    };
 
-        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+    const deleteTodo = (index: number) => {
+        todoList.splice(index, 1);
+        updateTodoState();
     };
 
     const toggleStatus = (index: number) => {
         todoList[index].status =
             todoList[index].status === "completed" ? "pending" : "completed";
-        setTodoList([...todoList]);
-        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+        updateTodoState();
     };
     const handleCreateTodo = () => {
         navigation.navigate(MainScreenNames.CreateToDoScreen, {
@@ -57,7 +64,11 @@ const ListTodoScreen = () => {
     };
     return (
         <>
-            {todoList.length === 0 && <Text>no todos, Add new</Text>}
+            {todoList.length === 0 && (
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>No todos, add new task</Text>
+                </View>
+            )}
             <FlatList
                 data={todoList}
                 renderItem={({ item, index }) => (
@@ -66,13 +77,14 @@ const ListTodoScreen = () => {
                         index={index}
                         toggleStatus={toggleStatus}
                         editTodo={editTodo}
+                        deleteTodo={deleteTodo}
                     />
                 )}
-            ></FlatList>
-            <View>
+            />
+            <View style={styles.addIcon}>
                 <Ionicons
                     name="add-circle"
-                    color={"green"}
+                    color={"#000000"}
                     size={48}
                     onPress={handleCreateTodo}
                 />
@@ -80,5 +92,17 @@ const ListTodoScreen = () => {
         </>
     );
 };
+const styles = StyleSheet.create({
+    textContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+    },
+    text: {
+        fontSize: 24,
+        fontWeight: "bold",
+    },
+    addIcon: { position: "absolute", bottom: 20, right: 20 },
+});
 
 export default ListTodoScreen;
