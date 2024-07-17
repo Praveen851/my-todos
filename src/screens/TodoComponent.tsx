@@ -20,7 +20,12 @@ type NavigationProps = NativeStackScreenProps<
     MainScreenNames
 >;
 
-const ListTodoComponent = ({ title, status }: ToDoType) => {
+const ListTodoComponent = ({
+    title,
+    status,
+    description,
+    dueDate,
+}: ToDoType) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
     const [currDate, setCurrDate] = useState<string>("today");
     const [date, setDate] = useState<Date>(new Date());
@@ -47,8 +52,14 @@ const ListTodoComponent = ({ title, status }: ToDoType) => {
     };
 
     const handleView = () => {
-        navigation.navigate(MainScreenNames.EditScreen);
+        navigation.navigate(MainScreenNames.EditScreen, {
+            description: description,
+            dueDate: dueDate,
+            status: status,
+            title: title,
+        });
     };
+    
     return (
         <View style={styles.container}>
             <View style={styles.card}>
