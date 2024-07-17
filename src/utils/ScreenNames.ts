@@ -10,6 +10,6 @@ export enum MainScreenNames {
 }
 
 export enum TabScreenNames {
-    ListTodoScreen = "ListTodoScreen",
-    OverAllScreen = "OverAllScreen",
+    DueTodayScreen = "DueTodayScreen",
+    AllTodoScreen = "AllTodoScreen",
 }

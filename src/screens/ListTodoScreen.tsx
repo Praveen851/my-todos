@@ -80,11 +80,11 @@ const ListTodoScreen = () => {
                         deleteTodo={deleteTodo}
                     />
                 )}
-            ></FlatList>
+            />
             <View style={styles.addIcon}>
                 <Ionicons
                     name="add-circle"
-                    color={"green"}
+                    color={"#000000"}
                     size={48}
                     onPress={handleCreateTodo}
                 />
