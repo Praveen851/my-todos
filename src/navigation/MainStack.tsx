@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TodayScreen from "../screens/TodayScreen";
+import ListTodoScreen from "../screens/ListTodoScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MainStackParamList, TabStackParamList } from "./StackParamList.types";
@@ -16,7 +16,7 @@ const MainStack = () => {
             <Tab.Navigator>
                 <Tab.Screen
                     name={TabScreenNames.OverAllScreen}
-                    component={TodayScreen}
+                    component={ListTodoScreen}
                     options={{
                         tabBarIcon: () => (
                             <Ionicons
@@ -28,8 +28,8 @@ const MainStack = () => {
                     }}
                 />
                 <Tab.Screen
-                    name={TabScreenNames.TodayScreen}
-                    component={TodayScreen}
+                    name={TabScreenNames.ListTodoScreen}
+                    component={ListTodoScreen}
                     options={{
                         tabBarIcon: () => <Ionicons name="today" size={24} />,
                         title: "Due today",

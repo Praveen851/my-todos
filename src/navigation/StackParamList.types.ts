@@ -11,6 +11,6 @@ export type MainStackParamList = {
 };
 
 export type TabStackParamList = {
-    TodayScreen: undefined;
+    ListTodoScreen: undefined;
     OverAllScreen: undefined;
 };

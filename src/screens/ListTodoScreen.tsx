@@ -1,15 +1,15 @@
 import { FlatList } from "react-native";
 import React from "react";
-import ListTodoComponent from "./TodoComponent";
+import TodoComponent from "./TodoComponent";
 import { todoList } from "./TodoTypes.types";
 
-const TodayScreen = () => {
+const ListTodoScreen = () => {
     return (
         <FlatList
             data={todoList}
-            renderItem={({ item }) => <ListTodoComponent {...item} />}
+            renderItem={({ item }) => <TodoComponent {...item} />}
         ></FlatList>
     );
 };
 
-export default TodayScreen;
+export default ListTodoScreen;

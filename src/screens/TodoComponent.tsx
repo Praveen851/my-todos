@@ -20,12 +20,7 @@ type NavigationProps = NativeStackScreenProps<
     MainScreenNames
 >;
 
-const ListTodoComponent = ({
-    title,
-    status,
-    description,
-    dueDate,
-}: ToDoType) => {
+const TodoComponent = ({ title, status, description, dueDate }: ToDoType) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
     const [currDate, setCurrDate] = useState<string>("today");
     const [date, setDate] = useState<Date>(new Date());
@@ -59,7 +54,7 @@ const ListTodoComponent = ({
             title: title,
         });
     };
-    
+
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -85,7 +80,7 @@ const ListTodoComponent = ({
     );
 };
 
-export default ListTodoComponent;
+export default TodoComponent;
 
 const styles = StyleSheet.create({
     container: { margin: 10, borderWidth: 1, padding: 15 },
