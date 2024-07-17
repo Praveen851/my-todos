@@ -5,6 +5,10 @@ export type ToDoType = {
     status: "completed" | "pending";
 };
 
+export type CreateTodoType = ToDoType & {
+    addTodo: (todo: ToDoType) => void;
+};
+
 export type TodoListType = ToDoType[];
 
 export const todoList: TodoListType = [
