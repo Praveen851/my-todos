@@ -38,7 +38,7 @@ const MainStack = () => {
     };
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator>
             <Stack.Screen
                 name={MainScreenNames.DashBoard}
                 component={DashBoard}
