@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { getDateString } from "../utils/helpers";
+import { getDateString, showToast } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -81,6 +81,9 @@ const CreateTodoScreen = ({
         navigation.pop();
     };
     const handleSave = () => {
+        if (!todo.title) {
+            return showToast("Title cannot be empty", "error");
+        }
         if (isEdit && typeof editTodo === "function") {
             editTodo(todo, index);
         } else addTodo(todo);

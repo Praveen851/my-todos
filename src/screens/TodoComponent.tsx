@@ -67,6 +67,11 @@ const TodoComponent = ({
                     <Text style={{ color: "blue" }}>Edit</Text>
                 </Pressable>
             </View>
+            {description && (
+                <View style={{ ...styles.card, marginTop: 10 }}>
+                    <Text>{description}</Text>
+                </View>
+            )}
         </View>
     );
 };

@@ -34,7 +34,7 @@ const ListTodoScreen = () => {
     };
 
     const addTodo = (todo: ToDoType) => {
-        todoList.push(todo);
+        todoList.unshift(todo);
         updateTodoState();
     };
 
