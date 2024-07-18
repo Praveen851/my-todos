@@ -1,18 +1,20 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { authenticate, getData, showToast, storeData } from "../helpers";
-import { LOGIN_KEY } from "../constants";
+import { LOGIN_KEY, TODO_LIST_KEY } from "../constants";
 import { ActivityIndicator, View } from "react-native";
 
 type AuthContextType = {
     user: string | null;
     login: (email: string, password: string) => Promise<boolean | void>;
     logout: () => Promise<void>;
+    authTodoListKey: string;
 };
 
 export const AuthContext = createContext<AuthContextType>({
     user: null,
     login: async () => {},
     logout: async () => {},
+    authTodoListKey: "",
 });
 
 interface AuthProviderProps {
@@ -68,7 +70,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                login,
+                logout,
+                authTodoListKey: TODO_LIST_KEY + user,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

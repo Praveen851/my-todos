@@ -1,5 +1,5 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TodoComponent from "./TodoComponent";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -8,7 +8,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { MainScreenNames } from "../utils/ScreenNames";
 import { getTodoList, storeData } from "../utils/helpers";
-import { TODO_LIST_KEY } from "../utils/constants";
+import { AuthContext } from "../utils/context/AuthContext";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
@@ -18,10 +18,11 @@ const ListTodoScreen = () => {
     const navigation: NavigationProps["navigation"] = useNavigation();
 
     const [todoList, setTodoList] = useState<ToDoType[]>([]);
+    const { authTodoListKey } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchData = async () => {
-            const todos = await getTodoList();
+            const todos = await getTodoList(authTodoListKey);
             setTodoList(todos);
         };
 
@@ -30,7 +31,7 @@ const ListTodoScreen = () => {
 
     const updateTodoState = () => {
         setTodoList([...todoList]);
-        storeData(TODO_LIST_KEY, JSON.stringify(todoList));
+        storeData(authTodoListKey, JSON.stringify(todoList));
     };
 
     const addTodo = (todo: ToDoType) => {

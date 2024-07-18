@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast, { ToastType } from "react-native-toast-message";
-import { TODO_LIST_KEY } from "./constants";
 import { ToDoType } from "../screens/TodoTypes.types";
 
 export const showToast = (message: string, type: ToastType) => {
@@ -44,8 +43,10 @@ export const getFormattedDate = (date: string) => {
     return date.split(" ").slice(1, 3).join(" ");
 };
 
-export const getTodoList: () => Promise<ToDoType[]> = async () => {
-    const todoList = await getData(TODO_LIST_KEY);
+export const getTodoList: (toDoListKey: string) => Promise<ToDoType[]> = async (
+    toDoListKey
+) => {
+    const todoList = await getData(toDoListKey);
     if (!todoList) return [];
     return JSON.parse(todoList);
 };
