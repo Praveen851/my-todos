@@ -38,6 +38,7 @@ const DashBoard = () => {
                     tabBarIcon: () => <Ionicons name="today" size={24} />,
                     title: "Due today",
                 }}
+                initialParams={{ isTodayScreen: true }}
             />
         </Tab.Navigator>
     );

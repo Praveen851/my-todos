@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
@@ -7,26 +7,23 @@ import { MainScreenNames } from "../utils/ScreenNames";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { getDateString } from "../utils/helpers";
+import { StateContext } from "../utils/context/StateContext";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
     MainScreenNames
 >;
-type TodoComponentProps = ToDoType & {
-    toggleStatus: (id: string) => void;
-    editTodo: (todo: ToDoType, id: string) => void;
-    deleteTodo: (id: string) => void;
-};
 
 const TodoComponent = ({
     title,
     status,
     description,
     dueDate,
-    toggleStatus,
     id,
-}: TodoComponentProps) => {
+}: ToDoType) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
+
+    const { toggleStatus } = useContext(StateContext);
 
     const handleEdit = () => {
         navigation.navigate(MainScreenNames.EditToDoScreen, {

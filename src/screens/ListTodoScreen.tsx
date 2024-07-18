@@ -1,22 +1,39 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import TodoComponent from "./TodoComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainStackParamList } from "../navigation/StackParamList.types";
-import { MainScreenNames } from "../utils/ScreenNames";
+import {
+    MainStackParamList,
+    TabStackParamList,
+} from "../navigation/StackParamList.types";
+import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
+
+type TabNavigationProps = NativeStackScreenProps<
+    TabStackParamList,
+    TabScreenNames
+>;
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
     MainScreenNames
 >;
 
-const ListTodoScreen = () => {
+const ListTodoScreen = ({ route }: TabNavigationProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
-    const { toggleStatus, editTodo, deleteTodo, todoList } =
-        useContext(StateContext);
+    const { todoList } = useContext(StateContext);
+
+    const todoListData = useMemo(
+        () =>
+            route.params?.isTodayScreen
+                ? todoList.filter(
+                      (item) => item.dueDate === new Date().toDateString()
+                  )
+                : todoList,
+        [route.params?.isTodayScreen, todoList]
+    );
 
     const handleCreateTodo = () => {
         navigation.navigate(MainScreenNames.CreateToDoScreen, {
@@ -34,16 +51,16 @@ const ListTodoScreen = () => {
                     <Text style={styles.text}>No todos, add new task</Text>
                 </View>
             )}
+            {todoListData.length === 0 && route.params?.isTodayScreen && (
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        No todos today, add new task
+                    </Text>
+                </View>
+            )}
             <FlatList
-                data={todoList}
-                renderItem={({ item, index }) => (
-                    <TodoComponent
-                        {...item}
-                        toggleStatus={toggleStatus}
-                        editTodo={editTodo}
-                        deleteTodo={deleteTodo}
-                    />
-                )}
+                data={todoListData}
+                renderItem={({ item }) => <TodoComponent {...item} />}
             />
             <View style={styles.addIcon}>
                 <Ionicons

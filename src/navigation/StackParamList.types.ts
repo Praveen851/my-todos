@@ -12,7 +12,9 @@ export type MainStackParamList = {
 };
 
 export type TabStackParamList = {
-    DueTodayScreen: undefined;
+    DueTodayScreen: {
+        isTodayScreen?: boolean;
+    };
     AllTodoScreen: undefined;
 };
 
