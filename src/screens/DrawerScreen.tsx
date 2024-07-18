@@ -1,11 +1,14 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import ButtonStyles from "./LoginScreenStyles";
+import { AuthContext } from "../utils/context/AuthContext";
 
 const DrawerScreen = () => {
+    const { logout } = useContext(AuthContext);
+
     return (
         <View style={styles.container}>
-            <Pressable style={styles.buttonContainer}>
+            <Pressable style={styles.buttonContainer} onPress={logout}>
                 <Text style={ButtonStyles.buttonText}>Log out</Text>
             </Pressable>
         </View>
