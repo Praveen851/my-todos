@@ -1,5 +1,5 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import React, { useContext, useMemo } from "react";
+import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
+import React, { useContext, useMemo, useState } from "react";
 import TodoComponent from "./TodoComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
@@ -10,6 +10,7 @@ import {
 } from "../navigation/StackParamList.types";
 import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
+import { capitalize } from "../utils/helpers";
 
 type TabNavigationProps = NativeStackScreenProps<
     TabStackParamList,
@@ -22,6 +23,9 @@ type NavigationProps = NativeStackScreenProps<
 >;
 
 const ListTodoScreen = ({ route }: TabNavigationProps) => {
+    const [filterByStatus, setFilterByStatus] = useState<
+        "pending" | "completed" | "all"
+    >("all");
     const navigation: NavigationProps["navigation"] = useNavigation();
     const { todoList } = useContext(StateContext);
 
@@ -44,6 +48,15 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
             title: "",
         });
     };
+    const toggleFilterByStatus = () => {
+        if (filterByStatus === "completed") setFilterByStatus("pending");
+        else setFilterByStatus("completed");
+    };
+
+    const getFilteredData = useMemo(() => {
+        if (filterByStatus === "all") return todoListData;
+        return todoListData.filter((item) => item.status === filterByStatus);
+    }, [filterByStatus, todoListData]);
     return (
         <>
             {todoList.length === 0 && (
@@ -59,16 +72,32 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
                 </View>
             )}
             <FlatList
-                data={todoListData}
+                data={getFilteredData}
                 renderItem={({ item }) => <TodoComponent {...item} />}
             />
-            <View style={styles.addIcon}>
-                <Ionicons
-                    name="add-circle"
-                    color={"#000000"}
-                    size={48}
-                    onPress={handleCreateTodo}
-                />
+            <View style={styles.filterSection}>
+                <Pressable
+                    onPress={toggleFilterByStatus}
+                    style={styles.buttonContainer}
+                >
+                    <Text style={styles.filterText}>
+                        Status: {capitalize(filterByStatus)}
+                    </Text>
+                </Pressable>
+                <Pressable
+                    onPress={() => setFilterByStatus("all")}
+                    style={styles.buttonContainer}
+                >
+                    <Text style={styles.filterText}>Clear filter</Text>
+                </Pressable>
+                <View style={styles.addIcon}>
+                    <Ionicons
+                        name="add-circle"
+                        color={"#000000"}
+                        size={48}
+                        onPress={handleCreateTodo}
+                    />
+                </View>
             </View>
         </>
     );
@@ -83,7 +112,25 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold",
     },
-    addIcon: { position: "absolute", bottom: 20, right: 20 },
+    addIcon: {
+        marginTop: 20,
+    },
+    filterSection: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    buttonContainer: {
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        marginVertical: 24,
+        borderRadius: 24,
+        elevation: 3,
+        backgroundColor: "black",
+    },
+    filterText: {
+        fontWeight: "bold",
+        color: "white",
+    },
 });
 
 export default ListTodoScreen;
