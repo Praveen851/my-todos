@@ -19,7 +19,7 @@ import { StateContext } from "../utils/context/StateContext";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
-    MainScreenNames
+    "CreateToDoScreen"
 >;
 
 type CreateTodoScreenProps = {

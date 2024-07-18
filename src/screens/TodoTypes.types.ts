@@ -6,4 +6,8 @@ export type ToDoType = {
     id: string;
 };
 
+export type CreateToDoType = ToDoType & {
+    isEdit?: boolean;
+};
+
 export type TodoListType = ToDoType[];
