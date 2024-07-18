@@ -18,7 +18,6 @@ const Drawer = createDrawerNavigator<DrawerStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
-
 const DashBoard = () => {
     return (
         <Tab.Navigator>
@@ -68,9 +67,12 @@ const HomeStack = () => {
 
 const MainStack = () => {
     return (
-
         <Drawer.Navigator drawerContent={DrawerScreen}>
-            <Drawer.Screen component={HomeStack} name="HomeScreen" />
+            <Drawer.Screen
+                component={HomeStack}
+                name="HomeScreen"
+                options={{ title: "My Todo" }}
+            />
         </Drawer.Navigator>
     );
 };
