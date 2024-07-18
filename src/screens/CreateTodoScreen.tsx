@@ -32,7 +32,6 @@ type CreateTodoScreenProps = {
     id?: string;
     dueDate?: string;
     editTodo?: (todo: ToDoType, id: string) => void;
-    index?: number;
     deleteTodo?: (id: string) => void;
 };
 
@@ -44,7 +43,6 @@ const CreateTodoScreen = ({
     id = (+new Date()).toString(),
     dueDate = new Date().toDateString(),
     editTodo,
-    index = 0,
     deleteTodo,
 }: CreateTodoScreenProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();

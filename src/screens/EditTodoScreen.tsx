@@ -12,7 +12,6 @@ const EditToDoScreen = () => {
         dueDate,
         status,
         title,
-        index,
         editTodo,
         deleteTodo,
         id,
@@ -23,7 +22,6 @@ const EditToDoScreen = () => {
             dueDate={dueDate}
             status={status}
             title={title}
-            index={index}
             editTodo={editTodo}
             isEdit
             deleteTodo={deleteTodo}

@@ -12,7 +12,6 @@ export type CreateTodoType = ToDoType & {
 
 export type EditTodoType = ToDoType & {
     editTodo: (todo: ToDoType, id: string) => void;
-    index: number;
     deleteTodo: (id: string) => void;
 };
 
