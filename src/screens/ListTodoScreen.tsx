@@ -51,7 +51,8 @@ const ListTodoScreen = () => {
         updateTodoState();
     };
 
-    const toggleStatus = (index: number) => {
+    const toggleStatus = (id: string) => {
+        const index = todoList.findIndex((item) => item.id === id);
         todoList[index].status =
             todoList[index].status === "completed" ? "pending" : "completed";
         updateTodoState();

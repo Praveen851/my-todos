@@ -14,7 +14,7 @@ type NavigationProps = NativeStackScreenProps<
 >;
 type TodoComponentProps = ToDoType & {
     index: number;
-    toggleStatus: (index: number) => void;
+    toggleStatus: (id: string) => void;
     editTodo: (todo: ToDoType, id: string) => void;
     deleteTodo: (id: string) => void;
 };
@@ -48,7 +48,7 @@ const TodoComponent = ({
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <Pressable onPress={() => toggleStatus(index)}>
+                <Pressable onPress={() => toggleStatus(id)}>
                     {status === "pending" && (
                         <Ionicons
                             name="square-outline"
