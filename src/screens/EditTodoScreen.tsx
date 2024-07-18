@@ -7,8 +7,16 @@ import CreateTodoScreen from "./CreateTodoScreen";
 type ViewToDoRouteProp = RouteProp<MainStackParamList, "EditToDoScreen">;
 const EditToDoScreen = () => {
     const route = useRoute<ViewToDoRouteProp>();
-    const { description, dueDate, status, title, index, editTodo, deleteTodo } =
-        route.params;
+    const {
+        description,
+        dueDate,
+        status,
+        title,
+        index,
+        editTodo,
+        deleteTodo,
+        id,
+    } = route.params;
     return (
         <CreateTodoScreen
             description={description}
@@ -19,6 +27,7 @@ const EditToDoScreen = () => {
             editTodo={editTodo}
             isEdit
             deleteTodo={deleteTodo}
+            id={id}
         />
     );
 };

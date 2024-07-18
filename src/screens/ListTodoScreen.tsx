@@ -39,7 +39,8 @@ const ListTodoScreen = () => {
         updateTodoState();
     };
 
-    const editTodo = (todo: ToDoType, index: number) => {
+    const editTodo = (todo: ToDoType, id: string) => {
+        const index = todoList.findIndex((item) => item.id === id);
         todoList[index] = todo;
         updateTodoState();
     };
@@ -59,6 +60,7 @@ const ListTodoScreen = () => {
             description: "",
             dueDate: "today",
             status: "pending",
+            id: (+new Date()).toString(),
             title: "",
             addTodo: addTodo,
         });

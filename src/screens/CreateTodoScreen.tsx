@@ -29,8 +29,9 @@ type CreateTodoScreenProps = {
     description?: string;
     title?: string;
     status?: "completed" | "pending";
+    id?: string;
     dueDate?: string;
-    editTodo?: (todo: ToDoType, index: number) => void;
+    editTodo?: (todo: ToDoType, id: string) => void;
     index?: number;
     deleteTodo?: (index: number) => void;
 };
@@ -40,6 +41,7 @@ const CreateTodoScreen = ({
     description = "",
     title = "",
     status = "pending",
+    id = (+new Date()).toString(),
     dueDate = new Date().toDateString(),
     editTodo,
     index = 0,
@@ -55,6 +57,7 @@ const CreateTodoScreen = ({
         description: description,
         dueDate: dueDate,
         status: status,
+        id: id,
     });
 
     const onChange: (
@@ -85,7 +88,7 @@ const CreateTodoScreen = ({
             return showToast("Title cannot be empty", "error");
         }
         if (isEdit && typeof editTodo === "function") {
-            editTodo(todo, index);
+            editTodo(todo, id);
         } else addTodo(todo);
         handleGoBack();
     };

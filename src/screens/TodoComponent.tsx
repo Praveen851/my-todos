@@ -15,7 +15,7 @@ type NavigationProps = NativeStackScreenProps<
 type TodoComponentProps = ToDoType & {
     index: number;
     toggleStatus: (index: number) => void;
-    editTodo: (todo: ToDoType, index: number) => void;
+    editTodo: (todo: ToDoType, id: string) => void;
     deleteTodo: (index: number) => void;
 };
 
@@ -28,15 +28,17 @@ const TodoComponent = ({
     index,
     editTodo,
     deleteTodo,
+    id,
 }: TodoComponentProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
 
-    const handleView = () => {
+    const handleEdit = () => {
         navigation.navigate(MainScreenNames.EditToDoScreen, {
             description: description,
             dueDate: dueDate,
             status: status,
             title: title,
+            id: id,
             editTodo: editTodo,
             index: index,
             deleteTodo: deleteTodo,
@@ -63,7 +65,7 @@ const TodoComponent = ({
                 <View style={styles.date}>
                     <Text>{getDateString(dueDate)}</Text>
                 </View>
-                <Pressable style={styles.view} onPress={handleView}>
+                <Pressable style={styles.view} onPress={handleEdit}>
                     <Text style={{ color: "blue" }}>Edit</Text>
                 </Pressable>
             </View>
