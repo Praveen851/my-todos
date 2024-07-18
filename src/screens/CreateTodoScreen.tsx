@@ -6,7 +6,7 @@ import {
     Text,
     Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -16,6 +16,7 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MainScreenNames } from "../utils/ScreenNames";
+import { StateContext } from "../utils/context/StateContext";
 
 type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
 
@@ -46,8 +47,7 @@ const CreateTodoScreen = ({
     deleteTodo,
 }: CreateTodoScreenProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
-    const route = useRoute<ViewToDoRouteProp>().params;
-    const { addTodo } = route;
+    const { addTodo } = useContext(StateContext);
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const toggleDatePicker = () => setShowPicker(!showPicker);
     const [todo, setTodo] = useState<ToDoType>({

@@ -25,7 +25,6 @@ const ListTodoScreen = () => {
             status: "pending",
             id: (+new Date()).toString(),
             title: "",
-            addTodo: addTodo,
         });
     };
     return (

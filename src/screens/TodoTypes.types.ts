@@ -6,9 +6,7 @@ export type ToDoType = {
     id: string;
 };
 
-export type CreateTodoType = ToDoType & {
-    addTodo: (todo: ToDoType) => void;
-};
+export type CreateTodoType = ToDoType;
 
 export type EditTodoType = ToDoType & {
     editTodo: (todo: ToDoType, id: string) => void;
