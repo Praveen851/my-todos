@@ -12,13 +12,10 @@ import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { getDateString, showToast } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
-import { RouteProp, useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MainScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
-
-type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
@@ -32,8 +29,6 @@ type CreateTodoScreenProps = {
     status?: "completed" | "pending";
     id?: string;
     dueDate?: string;
-    editTodo?: (todo: ToDoType, id: string) => void;
-    deleteTodo?: (id: string) => void;
 };
 
 const CreateTodoScreen = ({
@@ -43,11 +38,9 @@ const CreateTodoScreen = ({
     status = "pending",
     id = (+new Date()).toString(),
     dueDate = new Date().toDateString(),
-    editTodo,
-    deleteTodo,
 }: CreateTodoScreenProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
-    const { addTodo } = useContext(StateContext);
+    const { addTodo, editTodo, deleteTodo } = useContext(StateContext);
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const toggleDatePicker = () => setShowPicker(!showPicker);
     const [todo, setTodo] = useState<ToDoType>({

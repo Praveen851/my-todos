@@ -15,7 +15,7 @@ type NavigationProps = NativeStackScreenProps<
 
 const ListTodoScreen = () => {
     const navigation: NavigationProps["navigation"] = useNavigation();
-    const { addTodo, toggleStatus, editTodo, deleteTodo, todoList } =
+    const { toggleStatus, editTodo, deleteTodo, todoList } =
         useContext(StateContext);
 
     const handleCreateTodo = () => {
@@ -39,7 +39,6 @@ const ListTodoScreen = () => {
                 renderItem={({ item, index }) => (
                     <TodoComponent
                         {...item}
-                        index={index}
                         toggleStatus={toggleStatus}
                         editTodo={editTodo}
                         deleteTodo={deleteTodo}

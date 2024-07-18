@@ -13,7 +13,6 @@ type NavigationProps = NativeStackScreenProps<
     MainScreenNames
 >;
 type TodoComponentProps = ToDoType & {
-    index: number;
     toggleStatus: (id: string) => void;
     editTodo: (todo: ToDoType, id: string) => void;
     deleteTodo: (id: string) => void;
@@ -25,9 +24,6 @@ const TodoComponent = ({
     description,
     dueDate,
     toggleStatus,
-    index,
-    editTodo,
-    deleteTodo,
     id,
 }: TodoComponentProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
@@ -39,9 +35,6 @@ const TodoComponent = ({
             status: status,
             title: title,
             id: id,
-            editTodo: editTodo,
-            index: index,
-            deleteTodo: deleteTodo,
         });
     };
 
