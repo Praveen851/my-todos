@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
@@ -7,46 +7,38 @@ import { MainScreenNames } from "../utils/ScreenNames";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { getDateString } from "../utils/helpers";
+import { StateContext } from "../utils/context/StateContext";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
     MainScreenNames
 >;
-type TodoComponentProps = ToDoType & {
-    index: number;
-    toggleStatus: (index: number) => void;
-    editTodo: (todo: ToDoType, index: number) => void;
-    deleteTodo: (index: number) => void;
-};
 
 const TodoComponent = ({
     title,
     status,
     description,
     dueDate,
-    toggleStatus,
-    index,
-    editTodo,
-    deleteTodo,
-}: TodoComponentProps) => {
+    id,
+}: ToDoType) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
 
-    const handleView = () => {
+    const { toggleStatus } = useContext(StateContext);
+
+    const handleEdit = () => {
         navigation.navigate(MainScreenNames.EditToDoScreen, {
             description: description,
             dueDate: dueDate,
             status: status,
             title: title,
-            editTodo: editTodo,
-            index: index,
-            deleteTodo: deleteTodo,
+            id: id,
         });
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <Pressable onPress={() => toggleStatus(index)}>
+                <Pressable onPress={() => toggleStatus(id)}>
                     {status === "pending" && (
                         <Ionicons
                             name="square-outline"
@@ -63,7 +55,7 @@ const TodoComponent = ({
                 <View style={styles.date}>
                     <Text>{getDateString(dueDate)}</Text>
                 </View>
-                <Pressable style={styles.view} onPress={handleView}>
+                <Pressable style={styles.view} onPress={handleEdit}>
                     <Text style={{ color: "blue" }}>Edit</Text>
                 </Pressable>
             </View>

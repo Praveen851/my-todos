@@ -1,24 +1,21 @@
 import React from "react";
 
-import { RouteProp, useRoute } from "@react-navigation/native";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import CreateTodoScreen from "./CreateTodoScreen";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type ViewToDoRouteProp = RouteProp<MainStackParamList, "EditToDoScreen">;
-const EditToDoScreen = () => {
-    const route = useRoute<ViewToDoRouteProp>();
-    const { description, dueDate, status, title, index, editTodo, deleteTodo } =
-        route.params;
+type Props = NativeStackScreenProps<MainStackParamList, "EditToDoScreen">;
+
+const EditToDoScreen = ({ route }: Props) => {
+    const { description, dueDate, status, title, id } = route.params;
     return (
         <CreateTodoScreen
             description={description}
             dueDate={dueDate}
             status={status}
             title={title}
-            index={index}
-            editTodo={editTodo}
             isEdit
-            deleteTodo={deleteTodo}
+            id={id}
         />
     );
 };

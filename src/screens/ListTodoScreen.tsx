@@ -1,66 +1,47 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useMemo } from "react";
 import TodoComponent from "./TodoComponent";
-import { ToDoType } from "./TodoTypes.types";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainStackParamList } from "../navigation/StackParamList.types";
-import { MainScreenNames } from "../utils/ScreenNames";
-import { getTodoList, storeData } from "../utils/helpers";
-import { AuthContext } from "../utils/context/AuthContext";
+import {
+    MainStackParamList,
+    TabStackParamList,
+} from "../navigation/StackParamList.types";
+import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
+import { StateContext } from "../utils/context/StateContext";
+
+type TabNavigationProps = NativeStackScreenProps<
+    TabStackParamList,
+    TabScreenNames
+>;
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
     MainScreenNames
 >;
-const ListTodoScreen = () => {
+
+const ListTodoScreen = ({ route }: TabNavigationProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
+    const { todoList } = useContext(StateContext);
 
-    const [todoList, setTodoList] = useState<ToDoType[]>([]);
-    const { authTodoListKey } = useContext(AuthContext);
+    const todoListData = useMemo(
+        () =>
+            route.params?.isTodayScreen
+                ? todoList.filter(
+                      (item) => item.dueDate === new Date().toDateString()
+                  )
+                : todoList,
+        [route.params?.isTodayScreen, todoList]
+    );
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const todos = await getTodoList(authTodoListKey);
-            setTodoList(todos);
-        };
-
-        fetchData();
-    }, []);
-
-    const updateTodoState = () => {
-        setTodoList([...todoList]);
-        storeData(authTodoListKey, JSON.stringify(todoList));
-    };
-
-    const addTodo = (todo: ToDoType) => {
-        todoList.unshift(todo);
-        updateTodoState();
-    };
-
-    const editTodo = (todo: ToDoType, index: number) => {
-        todoList[index] = todo;
-        updateTodoState();
-    };
-
-    const deleteTodo = (index: number) => {
-        todoList.splice(index, 1);
-        updateTodoState();
-    };
-
-    const toggleStatus = (index: number) => {
-        todoList[index].status =
-            todoList[index].status === "completed" ? "pending" : "completed";
-        updateTodoState();
-    };
     const handleCreateTodo = () => {
         navigation.navigate(MainScreenNames.CreateToDoScreen, {
             description: "",
             dueDate: "today",
             status: "pending",
+            id: (+new Date()).toString(),
             title: "",
-            addTodo: addTodo,
         });
     };
     return (
@@ -70,17 +51,16 @@ const ListTodoScreen = () => {
                     <Text style={styles.text}>No todos, add new task</Text>
                 </View>
             )}
+            {todoListData.length === 0 && route.params?.isTodayScreen && (
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        No todos today, add new task
+                    </Text>
+                </View>
+            )}
             <FlatList
-                data={todoList}
-                renderItem={({ item, index }) => (
-                    <TodoComponent
-                        {...item}
-                        index={index}
-                        toggleStatus={toggleStatus}
-                        editTodo={editTodo}
-                        deleteTodo={deleteTodo}
-                    />
-                )}
+                data={todoListData}
+                renderItem={({ item }) => <TodoComponent {...item} />}
             />
             <View style={styles.addIcon}>
                 <Ionicons

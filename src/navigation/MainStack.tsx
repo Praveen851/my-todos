@@ -18,7 +18,6 @@ const Drawer = createDrawerNavigator<DrawerStackParamList>();
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const Tab = createBottomTabNavigator<TabStackParamList>();
 
-
 const DashBoard = () => {
     return (
         <Tab.Navigator>
@@ -39,6 +38,7 @@ const DashBoard = () => {
                     tabBarIcon: () => <Ionicons name="today" size={24} />,
                     title: "Due today",
                 }}
+                initialParams={{ isTodayScreen: true }}
             />
         </Tab.Navigator>
     );
@@ -68,9 +68,12 @@ const HomeStack = () => {
 
 const MainStack = () => {
     return (
-
         <Drawer.Navigator drawerContent={DrawerScreen}>
-            <Drawer.Screen component={HomeStack} name="HomeScreen" />
+            <Drawer.Screen
+                component={HomeStack}
+                name="HomeScreen"
+                options={{ title: "My Todo" }}
+            />
         </Drawer.Navigator>
     );
 };

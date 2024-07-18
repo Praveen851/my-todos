@@ -6,22 +6,20 @@ import {
     Text,
     Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ButtonStyle from "./LoginScreenStyles";
 import { ToDoType } from "./TodoTypes.types";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { getDateString, showToast } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
-import { RouteProp, useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MainScreenNames } from "../utils/ScreenNames";
-
-type ViewToDoRouteProp = RouteProp<MainStackParamList, "CreateToDoScreen">;
+import { StateContext } from "../utils/context/StateContext";
 
 type NavigationProps = NativeStackScreenProps<
     MainStackParamList,
-    MainScreenNames
+    "CreateToDoScreen"
 >;
 
 type CreateTodoScreenProps = {
@@ -29,10 +27,8 @@ type CreateTodoScreenProps = {
     description?: string;
     title?: string;
     status?: "completed" | "pending";
+    id?: string;
     dueDate?: string;
-    editTodo?: (todo: ToDoType, index: number) => void;
-    index?: number;
-    deleteTodo?: (index: number) => void;
 };
 
 const CreateTodoScreen = ({
@@ -40,14 +36,11 @@ const CreateTodoScreen = ({
     description = "",
     title = "",
     status = "pending",
+    id = (+new Date()).toString(),
     dueDate = new Date().toDateString(),
-    editTodo,
-    index = 0,
-    deleteTodo,
 }: CreateTodoScreenProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();
-    const route = useRoute<ViewToDoRouteProp>().params;
-    const { addTodo } = route;
+    const { addTodo, editTodo, deleteTodo } = useContext(StateContext);
     const [showPicker, setShowPicker] = useState<boolean>(false);
     const toggleDatePicker = () => setShowPicker(!showPicker);
     const [todo, setTodo] = useState<ToDoType>({
@@ -55,6 +48,7 @@ const CreateTodoScreen = ({
         description: description,
         dueDate: dueDate,
         status: status,
+        id: id,
     });
 
     const onChange: (
@@ -85,14 +79,14 @@ const CreateTodoScreen = ({
             return showToast("Title cannot be empty", "error");
         }
         if (isEdit && typeof editTodo === "function") {
-            editTodo(todo, index);
+            editTodo(todo, id);
         } else addTodo(todo);
         handleGoBack();
     };
 
     const handleDelete = () => {
         if (isEdit && typeof deleteTodo === "function") {
-            deleteTodo(index);
+            deleteTodo(id);
         }
         handleGoBack();
     };
