@@ -1,4 +1,11 @@
-import { View, Text, FlatList, StyleSheet, Pressable } from "react-native";
+import {
+    View,
+    Text,
+    FlatList,
+    StyleSheet,
+    Pressable,
+    Platform,
+} from "react-native";
 import React, { useContext, useMemo, useState } from "react";
 import TodoComponent from "./TodoComponent";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -10,7 +17,8 @@ import {
 } from "../navigation/StackParamList.types";
 import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
-import { capitalize } from "../utils/helpers";
+import { capitalize, getDateString } from "../utils/helpers";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 type TabNavigationProps = NativeStackScreenProps<
     TabStackParamList,
@@ -23,20 +31,23 @@ type NavigationProps = NativeStackScreenProps<
 >;
 
 const ListTodoScreen = ({ route }: TabNavigationProps) => {
+    const [showPicker, setShowPicker] = useState<boolean>(false);
+    const toggleDatePicker = () => setShowPicker(!showPicker);
     const [filterByStatus, setFilterByStatus] = useState<
         "pending" | "completed" | "all"
     >("all");
+    const [filterByDueDate, setFilterByDueDate] = useState("");
     const navigation: NavigationProps["navigation"] = useNavigation();
     const { todoList } = useContext(StateContext);
-
+    const isTodayScreen = route.params?.isTodayScreen;
     const todoListData = useMemo(
         () =>
-            route.params?.isTodayScreen
+            isTodayScreen
                 ? todoList.filter(
                       (item) => item.dueDate === new Date().toDateString()
                   )
                 : todoList,
-        [route.params?.isTodayScreen, todoList]
+        [isTodayScreen, todoList]
     );
 
     const handleCreateTodo = () => {
@@ -52,25 +63,65 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
         if (filterByStatus === "completed") setFilterByStatus("pending");
         else setFilterByStatus("completed");
     };
-
     const getFilteredData = useMemo(() => {
-        if (filterByStatus === "all") return todoListData;
-        return todoListData.filter((item) => item.status === filterByStatus);
-    }, [filterByStatus, todoListData]);
+        return todoListData.filter((item) => {
+            const statusMatch =
+                filterByStatus === "all" || item.status === filterByStatus;
+            const dueDateMatch =
+                !filterByDueDate || item.dueDate === filterByDueDate;
+            return statusMatch && dueDateMatch;
+        });
+    }, [filterByStatus, todoListData, filterByDueDate]);
+
+    const onChange: (
+        {
+            type,
+        }: {
+            type: string;
+        },
+        selectedDate: any
+    ) => void = ({ type }, selectedDate) => {
+        if (type == "set") {
+            if (Platform.OS === "android") {
+                toggleDatePicker();
+                setFilterByDueDate(selectedDate.toDateString());
+            }
+        } else {
+            toggleDatePicker();
+        }
+    };
+
+    const clearFilter = () => {
+        setFilterByStatus("all");
+        setFilterByDueDate("");
+    };
+
+    const noTodosMessage =
+        filterByDueDate || filterByStatus
+            ? "No todos, with the selected filter"
+            : "No todos, add new task";
+
+    const showNoTodosMessage = getFilteredData.length === 0;
+
     return (
         <>
-            {todoList.length === 0 && (
+            {showPicker && (
+                <DateTimePicker
+                    mode="date"
+                    value={
+                        filterByDueDate ? new Date(filterByDueDate) : new Date()
+                    }
+                    onChange={onChange}
+                    minimumDate={new Date()}
+                />
+            )}
+
+            {showNoTodosMessage && (
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>No todos, add new task</Text>
+                    <Text style={styles.text}>{noTodosMessage}</Text>
                 </View>
             )}
-            {todoListData.length === 0 && route.params?.isTodayScreen && (
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>
-                        No todos today, add new task
-                    </Text>
-                </View>
-            )}
+
             <FlatList
                 data={getFilteredData}
                 renderItem={({ item }) => <TodoComponent {...item} />}
@@ -84,10 +135,19 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
                         Status: {capitalize(filterByStatus)}
                     </Text>
                 </Pressable>
-                <Pressable
-                    onPress={() => setFilterByStatus("all")}
-                    style={styles.buttonContainer}
-                >
+                {!isTodayScreen && (
+                    <Pressable
+                        onPress={toggleDatePicker}
+                        style={styles.buttonContainer}
+                    >
+                        <Text style={styles.filterText}>
+                            {filterByDueDate
+                                ? getDateString(filterByDueDate)
+                                : "Due date"}
+                        </Text>
+                    </Pressable>
+                )}
+                <Pressable onPress={clearFilter} style={styles.buttonContainer}>
                     <Text style={styles.filterText}>Clear filter</Text>
                 </Pressable>
                 <View style={styles.addIcon}>
@@ -118,6 +178,7 @@ const styles = StyleSheet.create({
     filterSection: {
         flexDirection: "row",
         justifyContent: "space-between",
+        backgroundColor: "#cfcfcf",
     },
     buttonContainer: {
         paddingVertical: 12,

@@ -14,7 +14,6 @@ import { getDateString, showToast } from "../utils/helpers";
 import { MainStackParamList } from "../navigation/StackParamList.types";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { MainScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
 
 type NavigationProps = NativeStackScreenProps<
