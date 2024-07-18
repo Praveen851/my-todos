@@ -33,7 +33,7 @@ type CreateTodoScreenProps = {
     dueDate?: string;
     editTodo?: (todo: ToDoType, id: string) => void;
     index?: number;
-    deleteTodo?: (index: number) => void;
+    deleteTodo?: (id: string) => void;
 };
 
 const CreateTodoScreen = ({
@@ -95,7 +95,7 @@ const CreateTodoScreen = ({
 
     const handleDelete = () => {
         if (isEdit && typeof deleteTodo === "function") {
-            deleteTodo(index);
+            deleteTodo(id);
         }
         handleGoBack();
     };

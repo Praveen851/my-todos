@@ -13,7 +13,7 @@ export type CreateTodoType = ToDoType & {
 export type EditTodoType = ToDoType & {
     editTodo: (todo: ToDoType, id: string) => void;
     index: number;
-    deleteTodo: (index: number) => void;
+    deleteTodo: (id: string) => void;
 };
 
 export type TodoListType = ToDoType[];

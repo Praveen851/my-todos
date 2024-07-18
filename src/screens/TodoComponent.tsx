@@ -16,7 +16,7 @@ type TodoComponentProps = ToDoType & {
     index: number;
     toggleStatus: (index: number) => void;
     editTodo: (todo: ToDoType, id: string) => void;
-    deleteTodo: (index: number) => void;
+    deleteTodo: (id: string) => void;
 };
 
 const TodoComponent = ({

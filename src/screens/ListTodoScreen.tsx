@@ -45,7 +45,8 @@ const ListTodoScreen = () => {
         updateTodoState();
     };
 
-    const deleteTodo = (index: number) => {
+    const deleteTodo = (id: string) => {
+        const index = todoList.findIndex((item) => item.id === id);
         todoList.splice(index, 1);
         updateTodoState();
     };
