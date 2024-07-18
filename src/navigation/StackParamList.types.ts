@@ -15,3 +15,7 @@ export type TabStackParamList = {
     DueTodayScreen: undefined;
     AllTodoScreen: undefined;
 };
+
+export type DrawerStackParamList = {
+    HomeScreen: undefined;
+};
