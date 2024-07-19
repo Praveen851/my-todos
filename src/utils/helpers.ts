@@ -53,5 +53,3 @@ export const getTodoList: (toDoListKey: string) => Promise<ToDoType[]> = async (
 
 export const getDateString = (date: string) =>
     date === new Date().toDateString() ? "today" : getFormattedDate(date);
-
-export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
