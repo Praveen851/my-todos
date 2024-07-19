@@ -48,7 +48,7 @@ const AppNav = () => {
 
     return (
         <NavigationContainer>
-            {user === "" ? <AuthStack /> : <MainStack />}
+            {user ? <MainStack /> : <AuthStack />}
             <Toast />
         </NavigationContainer>
     );
