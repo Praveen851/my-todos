@@ -5,21 +5,9 @@ import AuthStack from "./AuthStack";
 import { AuthContext } from "../utils/context/AuthContext";
 import MainStack from "./MainStack";
 import * as Notifications from "expo-notifications";
-import { StateContext } from "../utils/context/StateContext";
 
 const AppNav = () => {
     const { user } = useContext(AuthContext);
-    const { todoList } = useContext(StateContext);
-
-    const dueToday = todoList.filter(
-        (item) => item.dueDate === new Date().toDateString()
-    ).length;
-
-    const notificationMessage = () => {
-        return dueToday
-            ? `You have ${dueToday} task due today!`
-            : "You have no task due today! Add to track";
-    };
     Notifications.setNotificationHandler({
         handleNotification: async () => ({
             shouldShowAlert: true,
@@ -36,11 +24,11 @@ const AppNav = () => {
 
             Notifications.scheduleNotificationAsync({
                 content: {
-                    title: "Hello",
-                    body: `You have ${dueToday} task due today!`,
+                    title: "Good morning!",
+                    body: "Check your dues today and keep track of your tasks!",
                 },
                 trigger: {
-                    hour: 8,
+                    hour: 7,
                     minute: 0,
                     repeats: true,
                 },
