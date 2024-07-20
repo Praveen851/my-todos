@@ -40,7 +40,7 @@ const StateProvider = ({ children }: StateProviderProps) => {
         };
 
         fetchData();
-    }, []);
+    }, [authTodoListKey]);
 
     const updateTodoState = (updateTodoList: ToDoType[]) => {
         setTodoList(updateTodoList);
