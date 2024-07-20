@@ -26,7 +26,7 @@ type CreateTodoScreenProps = {
     description?: string;
     title?: string;
     status?: "completed" | "pending";
-    id?: string;
+    id?: number;
     dueDate?: string;
 };
 
@@ -35,7 +35,7 @@ const CreateTodoScreen = ({
     description = "",
     title = "",
     status = "pending",
-    id = (+new Date()).toString(),
+    id = Date.now(),
     dueDate = new Date().toDateString(),
 }: CreateTodoScreenProps) => {
     const navigation: NavigationProps["navigation"] = useNavigation();

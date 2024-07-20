@@ -3,7 +3,7 @@ export type ToDoType = {
     description: string;
     dueDate: string;
     status: "completed" | "pending";
-    id: string;
+    id: number;
 };
 
 export type CreateToDoType = ToDoType & {

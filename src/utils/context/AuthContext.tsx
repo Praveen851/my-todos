@@ -21,7 +21,7 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

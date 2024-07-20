@@ -17,7 +17,7 @@ import {
 } from "../navigation/StackParamList.types";
 import { MainScreenNames, TabScreenNames } from "../utils/ScreenNames";
 import { StateContext } from "../utils/context/StateContext";
-import { capitalize, getDateString } from "../utils/helpers";
+import { getDateString } from "../utils/helpers";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 type TabNavigationProps = NativeStackScreenProps<
@@ -51,13 +51,7 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
     );
 
     const handleCreateTodo = () => {
-        navigation.navigate(MainScreenNames.CreateToDoScreen, {
-            description: "",
-            dueDate: "today",
-            status: "pending",
-            id: (+new Date()).toString(),
-            title: "",
-        });
+        navigation.navigate(MainScreenNames.CreateToDoScreen);
     };
     const toggleFilterByStatus = () => {
         if (filterByStatus === "completed") setFilterByStatus("pending");
@@ -132,7 +126,7 @@ const ListTodoScreen = ({ route }: TabNavigationProps) => {
                     style={styles.buttonContainer}
                 >
                     <Text style={styles.filterText}>
-                        Status: {capitalize(filterByStatus)}
+                        Status: {filterByStatus}
                     </Text>
                 </Pressable>
                 {!isTodayScreen && (
@@ -191,6 +185,7 @@ const styles = StyleSheet.create({
     filterText: {
         fontWeight: "bold",
         color: "white",
+        textTransform: "capitalize",
     },
 });
 
