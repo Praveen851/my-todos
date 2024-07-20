@@ -40,7 +40,7 @@ const StateProvider: React.FC<StateProviderProps> = ({ children }) => {
         };
 
         fetchData();
-    }, []);
+    }, [authTodoListKey]);
 
     const updateTodoState = () => {
         setTodoList([...todoList]);
