@@ -32,3 +32,26 @@ Run the following command to run the app
 ```sh
 npm run andriod
 ```
+## Build process
+
+Install eas 
+
+```sh
+sudo npm install -g eas-cli
+```
+Login to eas
+
+```sh
+eas login
+```
+Enter you expo credentials
+
+```sh
+eas build:configure
+```
+
+To build an android apk, run
+
+```sh
+eas build --platform android
+```
