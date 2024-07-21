@@ -71,3 +71,12 @@ After configuring run the below command to trigger the expo apk build
 eas build -p android --profile preview
 ```
 
+## Video
+
+
+https://github.com/user-attachments/assets/a625566d-70a6-438f-b56b-3209643fac4a
+
+
+
+https://github.com/user-attachments/assets/ddeb6217-aee2-443f-9745-e8a0a471c6dd
+
