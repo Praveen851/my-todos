@@ -50,8 +50,24 @@ Enter you expo credentials
 eas build:configure
 ```
 
-To build an android apk, run
+To build an android app (.aab), run
 
 ```sh
 eas build --platform android
 ```
+
+## Build for lcoal android device (.apk)
+
+To generate an .apk, modify the eas.json by adding one of the following properties in a build profile:
+
+developmentClient to true (default)
+distribution to internal
+android.buildType to apk
+android.gradleCommand to :app:assembleRelease, :app:assembleDebug or any other gradle command that produces .apk
+
+After configuring run the below command to trigger the expo apk build
+
+```sh
+eas build -p android --profile preview
+```
+
