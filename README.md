@@ -30,7 +30,7 @@ Open android emulator
 Run the following command to run the app
 
 ```sh
-npm run andriod
+npm run android
 ```
 ## Build process
 
